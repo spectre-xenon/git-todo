@@ -1,0 +1,52 @@
+.todo {
+  background-color: var(--todo-background);
+  min-height: 50px;
+  height: 10%;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.todo .part {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.todo .part:nth-child(1) {
+  justify-content: flex-start;
+}
+.todo .part:nth-child(2) {
+  justify-content: flex-end;
+}
+
+.part input {
+  accent-color: var(--accent);
+  height: 18px;
+  width: 18px;
+}
+
+.part h4 {
+  color: var(--text);
+  font-size: 18px;
+}
+
+.part .done {
+  color: var(--more-text);
+}
+
+.part .priority {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--high);
+}
+
+.part span {
+  cursor: pointer;
+}
