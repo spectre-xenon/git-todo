@@ -11,6 +11,7 @@ function renderProject(container, project) {
   projectDivTitle.textContent = project.title;
   projectDivDelete.textContent = "delete";
 
+  
   projectDiv.appendChild(projectDivTitle);
   projectDiv.appendChild(projectDivDelete);
 

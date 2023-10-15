@@ -1,16 +1,25 @@
 .todo {
+  height: 10%;
+  display: flex;
+  flex-direction: column;
+  transition: cubic-bezier(0.19, 0.98, 0.19, 0.97) 0.3s;
+}
+
+.mainTodo {
+  position: relative;
   background-color: var(--todo-background);
   min-height: 50px;
-  height: 10%;
+
   border-radius: 7px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
   padding: 0 1rem;
+  z-index: 2;
 }
 
-.todo .part {
+.mainTodo .part {
   width: 50%;
   height: 100%;
   display: flex;
@@ -18,10 +27,10 @@
   gap: 1rem;
 }
 
-.todo .part:nth-child(1) {
+.mainTodo .part:nth-child(1) {
   justify-content: flex-start;
 }
-.todo .part:nth-child(2) {
+.mainTodo .part:nth-child(2) {
   justify-content: flex-end;
 }
 
@@ -36,10 +45,6 @@
   font-size: 18px;
 }
 
-.part .done {
-  color: var(--more-text);
-}
-
 .part .priority {
   width: 15px;
   height: 15px;
@@ -48,5 +53,46 @@
 }
 
 .part span {
+  cursor: pointer;
+  transition: rotate cubic-bezier(0.19, 0.98, 0.19, 0.97) 0.3s;
+}
+
+.expand {
+  flex: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 0.4rem;
+  z-index: 1;
+  transform: translateY(-4px);
+  background-color: var(--todo-expand-background);
+  padding: 0.4rem;
+  padding-top: 0.5rem;
+  overflow: hidden;
+  border-radius: 0 0 7px 7px;
+  transition: cubic-bezier(0.19, 0.98, 0.19, 0.97) 0.3s;
+}
+
+.expand * {
+  color: var(--todo-expand-background);
+}
+
+.expand .date-utils {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expand p {
+  word-wrap: break-word;
+}
+
+.utils {
+  width: 6%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.utils span {
   cursor: pointer;
 }

@@ -33,6 +33,7 @@
 
 #projectsContainer .project {
   cursor: pointer;
+  pointer-events:;
   display: flex;
   justify-content: space-between;
   align-items: center;
