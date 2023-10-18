@@ -1,7 +1,14 @@
-import { format } from "date-fns";
 import "./todo.css";
+import { format } from "date-fns";
 
-function renderTodo(container, todo) {
+const todoContainer = document.getElementById("todoContainer");
+
+function emptyTodoContainer() {
+  todoContainer.style.background = "var(--sec-background)";
+  todoContainer.textContent = "";
+}
+
+function renderTodo(todo) {
   // Creating elements
   const todoDiv = document.createElement("div");
   const mainTodoDiv = document.createElement("div");
@@ -59,12 +66,10 @@ function renderTodo(container, todo) {
       todoTitle.style.color = "var(--more-text)";
       todoTitle.style.textDecoration = "line-through";
       todo.setChecked(true);
-      console.log(todo.isChecked());
     } else {
       todoTitle.style.color = "var(--text)";
       todoTitle.style.textDecoration = "none";
       todo.setChecked(false);
-      console.log(todo.isChecked());
     }
   });
 
@@ -111,7 +116,7 @@ function renderTodo(container, todo) {
   utilsDiv.appendChild(editButt);
   utilsDiv.appendChild(deleteButt);
 
-  container.appendChild(todoDiv);
+  todoContainer.appendChild(todoDiv);
 }
 
-export default renderTodo;
+export { renderTodo, emptyTodoContainer };
