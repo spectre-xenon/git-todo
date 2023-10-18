@@ -40,7 +40,7 @@ function renderTodo(container, todo) {
   deleteButt.classList.add("material-symbols-rounded");
 
   // Adding text
-  input.checked = todo.checked;
+  input.checked = todo.isChecked();
   priority.style.backgroundColor = `var(--${todo.priority})`;
   expandButt.textContent = "expand_more";
   todoTitle.textContent = todo.title;
@@ -58,11 +58,13 @@ function renderTodo(container, todo) {
     if (input.checked) {
       todoTitle.style.color = "var(--more-text)";
       todoTitle.style.textDecoration = "line-through";
-      todo.checked = true;
+      todo.setChecked(true);
+      console.log(todo.isChecked());
     } else {
       todoTitle.style.color = "var(--text)";
       todoTitle.style.textDecoration = "none";
-      todo.checked = false;
+      todo.setChecked(false);
+      console.log(todo.isChecked());
     }
   });
 

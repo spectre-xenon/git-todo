@@ -1,6 +1,6 @@
 /** @type {import('vite').UserConfig} */
 export default {
-  mode: "development",
+  mode: "production",
   root: "./src",
   build: {
     outDir: "../dist",

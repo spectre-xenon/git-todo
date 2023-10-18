@@ -1,15 +1,30 @@
+import "./index.css";
 import renderDOM from "./components/domHandler/domHandler";
 
-function createProject(title) {
+function Project(_projectTitle) {
+  const title = _projectTitle;
   const todos = [];
 
-  const createTodo = (title, desc, date, priority, checked) => {
+  const createTodo = (_todoTitle, _desc, _date, _priority, _checked) => {
+    let title = _todoTitle;
+    let desc = _desc;
+    let date = _date;
+    let priority = _priority;
+    let checked = _checked;
+
+    const setChecked = (state) => {
+      checked = state;
+    };
+
+    const isChecked = () => checked;
+
     todos.push({
       title,
       desc,
       date,
       priority,
-      checked,
+      setChecked,
+      isChecked,
     });
   };
 
@@ -18,7 +33,7 @@ function createProject(title) {
 const projectArr = [];
 
 (function main() {
-  const project1 = createProject("p1");
+  const project1 = Project("p1");
 
   for (let index = 0; index < 10; index++) {
     project1.createTodo(

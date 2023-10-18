@@ -5,8 +5,8 @@ const projectContainer = document.getElementById("projectsContainer");
 const todoContainer = document.getElementById("todoContainer");
 
 function renderDOM(projectArr) {
-  // projectContainer.textContent = "";
-  // todoContainer.textContent = "";
+  projectContainer.textContent = "";
+  todoContainer.textContent = "";
   projectArr.forEach((project) => {
     renderProject(projectContainer, project);
     project.todos.sort((todo1, todo2) => {
@@ -17,7 +17,7 @@ function renderDOM(projectArr) {
 
       return b - a;
     });
-    console.log(project.todos);
+
     project.todos.forEach((todo) => {
       renderTodo(todoContainer, todo);
     });
