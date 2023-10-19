@@ -95,10 +95,10 @@ function deleteTodo(todoTitle) {
 
 function setFocusedProject(projectTitle) {
   projectArr.forEach((project) => {
+    project.focused = false;
     if (project.title === projectTitle) {
       project.focused = true;
     }
-    project.focused = false;
   });
   saveProjectArr();
   renderDOM(projectArr);
