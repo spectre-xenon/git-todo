@@ -59,6 +59,7 @@ function renderTodo(todo) {
   // Adding functionality
   if (input.checked) {
     todoTitle.style.color = "var(--more-text)";
+    todoTitle.style.textDecoration = "line-through";
   }
 
   input.addEventListener("change", () => {

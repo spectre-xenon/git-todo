@@ -11,7 +11,7 @@
       <div id="seperator"></div>
       <div id="projectsHeader">
         <h3>Projects</h3>
-        <span class="material-symbols-rounded">add</span>
+        <span id="addButt" class="material-symbols-rounded">add</span>
       </div>
       <div id="projectsContainer"></div>
     </aside>
@@ -19,9 +19,49 @@
       <div id="todoContainer"></div>
     </main>
 
-    <dialog>
-      <form></form>
-    </dialog>
+    <div id="addFormBackdrop">
+      <div id="mainFormContainer">
+        <div id="topBorder"></div>
+        <div id="mainForm">
+          <div id="options">
+            <div class="sideBarButt" id="newTodo">
+              <span class="newText">new</span>
+              <span class="todoText">Todo</span>
+              <span class="parentathes">()</span>;
+            </div>
+            <div class="sideBarButt" id="newProject">
+              <span class="newText">new</span>
+              <span class="todoText">Project</span>
+              <span class="parentathes">()</span>;
+            </div>
+          </div>
+          <form>
+            <input
+              type="text"
+              class="title"
+              id="todoTitle"
+              placeholder="Title*"
+              required
+            />
+            <textarea
+              id="desc"
+              cols="30"
+              rows="10"
+              placeholder="Description"
+              id="desc"
+            ></textarea>
+            <select id="Priotity" aria-placeholder="Priotity">
+              <option value="" disabled selected hidden>Priority</option>
+              <option value="low">Low</option>
+              <option value="normal">Normal</option>
+              <option value="high">High</option>
+            </select>
+            <input type="date" id="date" />
+            <button type="submit">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="./app.js"></script>
   </body>

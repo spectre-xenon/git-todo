@@ -1,0 +1,144 @@
+#addFormBackdrop {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(4.5px);
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+#mainFormContainer {
+  width: 55%;
+  height: 70%;
+  background-color: var(--form-background);
+  border: 2px var(--accent) solid;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+#topBorder {
+  flex: 1;
+  background-color: var(--accent);
+}
+
+#mainForm {
+  flex: 25;
+  display: flex;
+}
+
+#options {
+  flex: 1;
+  background-color: var(--sidebar-background);
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  font-size: 20px;
+}
+
+.sideBarButt {
+  padding-left: 1.5rem;
+  height: 15%;
+  display: flex;
+  align-items: center;
+}
+
+#newTodo {
+  background: var(--form-background);
+}
+
+.sideBarButt:hover {
+  cursor: pointer;
+  background: var(--form-background);
+}
+
+.newText {
+  margin-right: 12px;
+  color: var(--new);
+}
+.todoText {
+  color: var(--constructor);
+}
+.parentathes {
+  color: var(--parenth);
+}
+
+#mainForm form {
+  position: relative;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 2rem;
+}
+
+#mainForm form * {
+  border-radius: 7px;
+  font-size: 16px;
+}
+
+input,
+textarea {
+  padding-left: 1rem;
+}
+
+textarea {
+  resize: none;
+  height: 50%;
+}
+
+input[type="text"],
+textarea {
+  background: transparent;
+  border: none;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: var(--accent);
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+select {
+  padding-left: 1rem;
+  width: 40%;
+  height: 8%;
+  color: #676a74;
+  background-color: var(--sub-text-background);
+}
+
+select * {
+  color: #676a74;
+}
+
+input[type="date"] {
+  border: none;
+  width: 26%;
+  height: 8%;
+  color: #676a74;
+  background-color: var(--sub-text-background);
+}
+
+button {
+  position: absolute;
+  top: 88%;
+  left: 80%;
+  width: 6rem;
+  height: 2rem;
+  border: none;
+  background: var(--accent);
+  color: var(--background);
+}
+
+button:hover {
+  cursor: pointer;
+  filter: brightness(110%);
+}

@@ -15,6 +15,13 @@
   --text: #ffffff;
   --sub-text: #535252;
   --more-text: #b1b1b1;
+
+  --form-background: #45475a;
+  --sidebar-background: #313244;
+  --new: #cba6f7;
+  --constructor: #f9e2af;
+  --parenth: #f38ba8;
+  --input-placeholder: #8e93a1;
 }
 
 * {
