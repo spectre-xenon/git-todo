@@ -1,5 +1,6 @@
 import "./todo.css";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
+import { deleteTodo } from "../Project";
 
 const todoContainer = document.getElementById("todoContainer");
 
@@ -54,7 +55,7 @@ function renderTodo(todo) {
   desc.textContent = `Description: ${todo.desc}`;
   editButt.textContent = "edit";
   deleteButt.textContent = "delete";
-  date.textContent = `Date: ${format(todo.date, "P")}`;
+  date.textContent = `Date: ${format(parseISO(todo.date), "P")}`;
 
   // Adding functionality
   if (input.checked) {
@@ -93,6 +94,10 @@ function renderTodo(todo) {
     expandDiv.style.backgroundColor = "var(--sub-text-background)";
 
     expanded = true;
+  });
+
+  deleteButt.addEventListener("click", () => {
+    deleteTodo(todo.title);
   });
 
   // Appending elements

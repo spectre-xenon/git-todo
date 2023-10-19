@@ -79,12 +79,26 @@ function deleteProject(projectTitle) {
   renderDOM(projectArr);
 }
 
+function deleteTodo(todoTitle) {
+  projectArr.forEach((project) => {
+    if (project.focused) {
+      project.todos.forEach((todo, index) => {
+        if (todo.title === todoTitle) {
+          project.todos.splice(index, 1);
+        }
+      });
+    }
+  });
+  saveProjectArr();
+  renderDOM(projectArr);
+}
+
 function setFocusedProject(projectTitle) {
   projectArr.forEach((project) => {
-    project.focused = false;
     if (project.title === projectTitle) {
       project.focused = true;
     }
+    project.focused = false;
   });
   saveProjectArr();
   renderDOM(projectArr);
@@ -108,6 +122,7 @@ export {
   createProject,
   getProjectArr,
   deleteProject,
+  deleteTodo,
   setFocusedProject,
   addTodo,
 };

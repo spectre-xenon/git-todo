@@ -41,7 +41,6 @@ function renderProject(project) {
   projectDivDelete.addEventListener("click", (event) => {
     event.stopPropagation();
     deleteProject(project.title);
-    console.log(getProjectArr());
   });
 
   projectDiv.appendChild(projectDivTitle);

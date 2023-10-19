@@ -1,4 +1,5 @@
 import "./form.css";
+import { formatISO } from "date-fns";
 import { createProject, addTodo } from "../Project";
 
 function newTodoButtClick(dialog) {
@@ -9,8 +10,18 @@ function newTodoButtClick(dialog) {
 
   document.querySelector("button").addEventListener("click", (e) => {
     e.preventDefault();
-    addTodo(title.value, desc.value, priotity.selectedIndex, new Date(date));
+    if (title.value === "") return alert("Please enter a todo name!");
+
+    addTodo(
+      title.value,
+      desc.value || "no Desc",
+      date.value ? formatISO(new Date(date.value)) : formatISO(new Date()),
+      priotity.selectedIndex || "normal"
+    );
     dialog.style.display = "none";
+    title.value = "";
+    desc.value = "";
+    priotity.selectedIndex = "";
   });
 }
 
@@ -53,7 +64,14 @@ function initForm() {
       if (title.value === "") return alert("Please enter a project name!");
       createProject(title.value);
       dialog.style.display = "none";
+      title.value = "";
     });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      dialog.style.display = "none";
+    }
   });
 }
 
