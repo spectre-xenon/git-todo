@@ -1,6 +1,6 @@
-import { deleteProject, getProjectArr, setFocusedProject } from "../Project";
+import { deleteProject, setFocusedProject } from "../Project";
 import "./project.css";
-import { renderTodo, emptyTodoContainer } from "./renderTodo";
+import { emptyTodoContainer } from "./renderTodo";
 
 const projectContainer = document.getElementById("projectsContainer");
 
@@ -20,9 +20,12 @@ function renderProject(project) {
   projectDivDelete.textContent = "delete";
 
   // Adding functionality
+  if (project.focused) {
+    projectDiv.style.filter = "brightness(110%)";
+  }
+
   projectDiv.addEventListener("click", () => {
     emptyTodoContainer();
-    setFocusedProject(project.title);
     // Todo: move this function to (create,remove,edit todo functions)
     project.todos.sort((todo1, todo2) => {
       const priorities = { high: 2, normal: 1, low: 0 };
@@ -32,10 +35,7 @@ function renderProject(project) {
 
       return b - a;
     });
-
-    project.todos.forEach((todo) => {
-      renderTodo(todo);
-    });
+    setFocusedProject(project.title);
   });
 
   projectDivDelete.addEventListener("click", (event) => {

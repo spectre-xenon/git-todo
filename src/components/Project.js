@@ -1,6 +1,7 @@
 import renderDOM from "./domHandler";
 
-const storedArr = JSON.parse(localStorage.getItem("sortedArr")) || [];
+const storedArr = JSON.parse(localStorage.getItem("storedArr")) || [];
+
 if (storedArr.length > 0) {
   storedArr.forEach((proj) => {
     proj.createTodo = (
@@ -26,7 +27,7 @@ if (storedArr.length > 0) {
       todo.setChecked = (state) => {
         todo.checked = state;
       };
-      todo.isChecked = (state) => todo.checked;
+      todo.isChecked = () => todo.checked;
     });
   });
 }
@@ -60,13 +61,23 @@ function Project(_projectTitle) {
 }
 
 function saveProjectArr() {
-  localStorage.setItem("sortedArr", JSON.stringify(projectArr));
+  localStorage.setItem("storedArr", JSON.stringify(projectArr));
 }
 
 function createProject(title) {
   projectArr.push(Project(title));
   renderDOM(projectArr);
   saveProjectArr();
+}
+
+function checkProjectExists(title) {
+  let projectExist = false;
+  projectArr.forEach((project) => {
+    if (project.title === title) {
+      projectExist = true;
+    }
+  });
+  return projectExist;
 }
 
 function deleteProject(projectTitle) {
@@ -104,6 +115,20 @@ function setFocusedProject(projectTitle) {
   renderDOM(projectArr);
 }
 
+function checkTodoExists(title) {
+  let todoExist = false;
+  projectArr.forEach((project) => {
+    if (project.focused) {
+      project.todos.forEach((todo) => {
+        if (todo.title === title) {
+          todoExist = true;
+        }
+      });
+    }
+  });
+  return todoExist;
+}
+
 function addTodo(title, desc, date, priority, checked = false) {
   projectArr.forEach((project) => {
     if (project.focused) {
@@ -114,15 +139,35 @@ function addTodo(title, desc, date, priority, checked = false) {
   renderDOM(projectArr);
 }
 
+function getCheckedTodosFraction() {
+  let todosCount = 0;
+  let checkedTodos = 0;
+  projectArr.forEach((project) => {
+    if (project.focused) {
+      project.todos.forEach((todo) => {
+        todosCount += 1;
+        if (todo.checked) {
+          checkedTodos += 1;
+        }
+      });
+    }
+  });
+
+  return checkedTodos / todosCount;
+}
+
 function getProjectArr() {
   return projectArr;
 }
 
 export {
   createProject,
+  checkProjectExists,
   getProjectArr,
   deleteProject,
   deleteTodo,
   setFocusedProject,
   addTodo,
+  checkTodoExists,
+  getCheckedTodosFraction,
 };

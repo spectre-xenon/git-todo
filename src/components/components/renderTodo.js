@@ -1,12 +1,16 @@
 import "./todo.css";
 import { format, parseISO } from "date-fns";
-import { deleteTodo } from "../Project";
+import { deleteTodo, getCheckedTodosFraction } from "../Project";
 
 const todoContainer = document.getElementById("todoContainer");
+const progressSlider = document.getElementById("progressSlider");
 
 function emptyTodoContainer() {
-  todoContainer.style.background = "var(--sec-background)";
   todoContainer.textContent = "";
+}
+
+function resetProgress() {
+  progressSlider.style.width = `${getCheckedTodosFraction() * 100}%`;
 }
 
 function renderTodo(todo) {
@@ -73,6 +77,8 @@ function renderTodo(todo) {
       todoTitle.style.textDecoration = "none";
       todo.setChecked(false);
     }
+    console.log(getCheckedTodosFraction() * 100);
+    progressSlider.style.width = `${getCheckedTodosFraction() * 100}%`;
   });
 
   let expanded = false;
@@ -125,4 +131,4 @@ function renderTodo(todo) {
   todoContainer.appendChild(todoDiv);
 }
 
-export { renderTodo, emptyTodoContainer };
+export { renderTodo, emptyTodoContainer, resetProgress };
