@@ -1,6 +1,10 @@
 import "./todo.css";
 import { format, parseISO } from "date-fns";
-import { deleteTodo, getCheckedTodosFraction } from "../Project";
+import {
+  deleteTodo,
+  getCheckedTodosFraction,
+  saveProjectArr,
+} from "../Project";
 
 const todoContainer = document.getElementById("todoContainer");
 const progressSlider = document.getElementById("progressSlider");
@@ -9,7 +13,7 @@ function emptyTodoContainer() {
   todoContainer.textContent = "";
 }
 
-function resetProgress() {
+function updateProgress() {
   progressSlider.style.width = `${getCheckedTodosFraction() * 100}%`;
 }
 
@@ -52,7 +56,7 @@ function renderTodo(todo) {
   deleteButt.classList.add("material-symbols-rounded");
 
   // Adding text
-  input.checked = todo.isChecked();
+  input.checked = todo.checked;
   priority.style.backgroundColor = `var(--${todo.priority})`;
   expandButt.textContent = "expand_more";
   todoTitle.textContent = todo.title;
@@ -71,14 +75,17 @@ function renderTodo(todo) {
     if (input.checked) {
       todoTitle.style.color = "var(--more-text)";
       todoTitle.style.textDecoration = "line-through";
-      todo.setChecked(true);
+      todo.checked = true;
+      saveProjectArr();
+      updateProgress();
     } else {
+      progressSlider.style.width = `${getCheckedTodosFraction() * 100}%`;
       todoTitle.style.color = "var(--text)";
       todoTitle.style.textDecoration = "none";
-      todo.setChecked(false);
+      todo.checked = false;
+      saveProjectArr();
+      updateProgress();
     }
-    console.log(getCheckedTodosFraction() * 100);
-    progressSlider.style.width = `${getCheckedTodosFraction() * 100}%`;
   });
 
   let expanded = false;
@@ -104,6 +111,7 @@ function renderTodo(todo) {
 
   deleteButt.addEventListener("click", () => {
     deleteTodo(todo.title);
+    updateProgress();
   });
 
   // Appending elements
@@ -131,4 +139,4 @@ function renderTodo(todo) {
   todoContainer.appendChild(todoDiv);
 }
 
-export { renderTodo, emptyTodoContainer, resetProgress };
+export { renderTodo, emptyTodoContainer, updateProgress };

@@ -26,15 +26,6 @@ function renderProject(project) {
 
   projectDiv.addEventListener("click", () => {
     emptyTodoContainer();
-    // Todo: move this function to (create,remove,edit todo functions)
-    project.todos.sort((todo1, todo2) => {
-      const priorities = { high: 2, normal: 1, low: 0 };
-
-      const a = priorities[todo1.priority];
-      const b = priorities[todo2.priority];
-
-      return b - a;
-    });
     setFocusedProject(project.title);
   });
 

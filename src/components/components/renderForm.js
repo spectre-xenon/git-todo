@@ -8,11 +8,12 @@ import {
 } from "../Project";
 
 function newTodoButtClick(dialog) {
-  const title = document.getElementById("todoTitle");
+  const title = document.getElementById("ttitle");
   const desc = document.getElementById("desc");
   const priotity = document.getElementById("priotity");
   const date = document.getElementById("date");
 
+  title.focus();
   document.querySelector("button").addEventListener("click", (e) => {
     e.preventDefault();
     if (title.value === "") return alert("Please enter a todo name!");
@@ -36,21 +37,23 @@ function newTodoButtClick(dialog) {
 function initForm() {
   const dialog = document.getElementById("addFormBackdrop");
   const button = document.getElementById("addButt");
-
-  button.addEventListener("click", () => {
-    dialog.style.display = "flex";
-  });
+  let openedForm = "todo";
 
   const form = document.querySelector("form");
   const newTodoButt = document.getElementById("newTodo");
   const newProjectButt = document.getElementById("newProject");
   const newTodoTemp =
-    "<input type='text' class='title' maxlength='50' id='todoTitle' placeholder='Title*' required /> <textarea id='desc' cols='30' rows='10' placeholder='Description' id='desc' ></textarea> <select id='priotity' > <option value='' disabled selected hidden>Priority</option> <option value='low'>Low</option> <option value='normal'>Normal</option> <option value='high'>High</option> </select> <input type='date' id='date' /> <button type='submit'>Create</button>";
+    "<input type='text' class='title' maxlength='50' id='ttitle' placeholder='Title*' required /> <textarea id='desc' cols='30' rows='10' placeholder='Description' id='desc' ></textarea> <select id='priotity' > <option value='' disabled selected hidden>Priority</option> <option value='low'>Low</option> <option value='normal'>Normal</option> <option value='high'>High</option> </select> <input type='date' id='date' /> <button type='submit'>Create</button>";
   const newProjectTemp =
-    "<input type='text' id='projectTitle' maxlength='15' class='title' placeholder='Title*' required /> <button type='submit'>Create</button>";
+    "<input type='text' id='ttitle' maxlength='15' class='title' placeholder='Title*' required /> <button type='submit'>Create</button>";
 
   form.innerHTML = newTodoTemp;
   newTodoButtClick(dialog);
+
+  button.addEventListener("click", () => {
+    dialog.style.display = "flex";
+    document.getElementById("ttitle").focus();
+  });
 
   newTodoButt.addEventListener("click", () => {
     newProjectButt.style.background = "#313244";
@@ -65,9 +68,10 @@ function initForm() {
     newProjectButt.style.background = "#45475a";
     form.innerHTML = newProjectTemp;
 
+    document.getElementById("ttitle").focus();
     document.querySelector("button").addEventListener("click", (e) => {
       e.preventDefault();
-      const title = document.getElementById("projectTitle");
+      const title = document.getElementById("ttitle");
 
       if (title.value === "") return alert("Please enter a project name!");
       console.log(`title: ${title.value}`);
@@ -78,6 +82,14 @@ function initForm() {
       createProject(title.value);
       dialog.style.display = "none";
       title.value = "";
+
+      document.querySelector("button").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          createProject(title.value);
+          dialog.style.display = "none";
+          title.value = "";
+        }
+      });
     });
 
     document.querySelector("button").removeEventListener("click", () => {});

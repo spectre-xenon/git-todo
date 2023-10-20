@@ -16,11 +16,8 @@ if (storedArr.length > 0) {
       let date = _date;
       let priority = _priority;
       let checked = _checked;
-      const setChecked = (state) => {
-        checked = state;
-      };
-      const isChecked = () => checked;
-      proj.todos.push({ title, desc, date, priority, setChecked, isChecked });
+
+      proj.todos.push({ title, desc, date, priority, checked });
     };
 
     proj.todos.forEach((todo) => {
@@ -50,11 +47,8 @@ function Project(_projectTitle) {
     let date = _date;
     let priority = _priority;
     let checked = _checked;
-    const setChecked = (state) => {
-      checked = state;
-    };
-    const isChecked = () => checked;
-    todos.push({ title, desc, date, priority, setChecked, isChecked });
+
+    todos.push({ title, desc, date, priority, checked });
   };
 
   return { title, focused, todos, createTodo };
@@ -64,8 +58,23 @@ function saveProjectArr() {
   localStorage.setItem("storedArr", JSON.stringify(projectArr));
 }
 
+function sortAllProject() {
+  projectArr.forEach((project) => {
+    project.todos.sort((todo1, todo2) => {
+      const priorities = { high: 2, normal: 1, low: 0 };
+
+      const a = priorities[todo1.priority];
+      const b = priorities[todo2.priority];
+
+      return b - a;
+    });
+  });
+}
+
 function createProject(title) {
+  // Todo: move this function to (create,remove,edit todo functions)
   projectArr.push(Project(title));
+  sortAllProject();
   renderDOM(projectArr);
   saveProjectArr();
 }
@@ -86,6 +95,7 @@ function deleteProject(projectTitle) {
       projectArr.splice(index, 1);
     }
   });
+  sortAllProject();
   saveProjectArr();
   renderDOM(projectArr);
 }
@@ -100,6 +110,7 @@ function deleteTodo(todoTitle) {
       });
     }
   });
+  sortAllProject();
   saveProjectArr();
   renderDOM(projectArr);
 }
@@ -135,6 +146,7 @@ function addTodo(title, desc, date, priority, checked = false) {
       project.createTodo(title, desc, date, priority, checked);
     }
   });
+  sortAllProject();
   saveProjectArr();
   renderDOM(projectArr);
 }
@@ -161,6 +173,7 @@ function getProjectArr() {
 }
 
 export {
+  saveProjectArr,
   createProject,
   checkProjectExists,
   getProjectArr,

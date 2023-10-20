@@ -113,20 +113,20 @@ main {
 }
 
 /* width */
-#todoContainer::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 6px;
 }
 
 /* Track */
-#todoContainer::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
 }
 
 /* Handle */
-#todoContainer::-webkit-scrollbar-thumb {
-  background: var(--accent);
+::-webkit-scrollbar-thumb {
+  background: var(--sec-accent);
 }
 
 /* Handle on hover */
-#todoContainer::-webkit-scrollbar-thumb:hover {
-  background: var(--sec-accent);
+::-webkit-scrollbar-thumb:hover {
+  background: var(--new);
 }
