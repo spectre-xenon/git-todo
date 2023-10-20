@@ -1,6 +1,6 @@
 import { deleteProject, setFocusedProject } from "../Project";
 import "./project.css";
-import { emptyTodoContainer } from "./renderTodo";
+import { emptyTodoContainer, updateProgress } from "./renderTodo";
 
 const projectContainer = document.getElementById("projectsContainer");
 
@@ -32,6 +32,7 @@ function renderProject(project) {
   projectDivDelete.addEventListener("click", (event) => {
     event.stopPropagation();
     deleteProject(project.title);
+    updateProgress();
   });
 
   projectDiv.appendChild(projectDivTitle);
