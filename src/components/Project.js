@@ -59,6 +59,7 @@ function saveProjectArr() {
 }
 
 function sortAllProject() {
+  // TODO
   projectArr.forEach((project) => {
     project.todos.sort((todo1, todo2) => {
       const priorities = { high: 2, normal: 1, low: 0 };
@@ -80,13 +81,12 @@ function createProject(title) {
 }
 
 function checkProjectExists(title) {
-  let projectExist = false;
-  projectArr.forEach((project) => {
-    if (project.title === title) {
-      projectExist = true;
-    }
-  });
-  return projectExist;
+  const project = projectArr.find((proj) => proj.title === title);
+
+  if (project) {
+    return true;
+  }
+  return false;
 }
 
 function deleteProject(projectTitle) {
@@ -101,13 +101,10 @@ function deleteProject(projectTitle) {
 }
 
 function deleteTodo(todoTitle) {
-  projectArr.forEach((project) => {
-    if (project.focused) {
-      project.todos.forEach((todo, index) => {
-        if (todo.title === todoTitle) {
-          project.todos.splice(index, 1);
-        }
-      });
+  const project = projectArr.find((proj) => proj.focused);
+  project.todos.forEach((todo, index) => {
+    if (todo.title === todoTitle) {
+      project.todos.splice(index, 1);
     }
   });
   sortAllProject();
@@ -128,24 +125,18 @@ function setFocusedProject(projectTitle) {
 
 function checkTodoExists(title) {
   let todoExist = false;
-  projectArr.forEach((project) => {
-    if (project.focused) {
-      project.todos.forEach((todo) => {
-        if (todo.title === title) {
-          todoExist = true;
-        }
-      });
+  const project = projectArr.find((proj) => proj.focused);
+  project.todos.forEach((todo) => {
+    if (todo.title === title) {
+      todoExist = true;
     }
   });
   return todoExist;
 }
 
 function addTodo(title, desc, date, priority, checked = false) {
-  projectArr.forEach((project) => {
-    if (project.focused) {
-      project.createTodo(title, desc, date, priority, checked);
-    }
-  });
+  const project = projectArr.find((proj) => proj.focused);
+  project.createTodo(title, desc, date, priority, checked);
   sortAllProject();
   saveProjectArr();
   renderDOM(projectArr);
@@ -154,14 +145,12 @@ function addTodo(title, desc, date, priority, checked = false) {
 function getCheckedTodosFraction() {
   let todosCount = 0;
   let checkedTodos = 0;
-  projectArr.forEach((project) => {
-    if (project.focused) {
-      project.todos.forEach((todo) => {
-        todosCount += 1;
-        if (todo.checked) {
-          checkedTodos += 1;
-        }
-      });
+  const project = projectArr.find((proj) => proj.focused);
+
+  project.todos.forEach((todo) => {
+    todosCount += 1;
+    if (todo.checked) {
+      checkedTodos += 1;
     }
   });
 
