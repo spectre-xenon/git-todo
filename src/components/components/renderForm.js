@@ -74,7 +74,7 @@ function initForm() {
       const title = document.getElementById("ttitle");
 
       if (title.value === "") return alert("Please enter a project name!");
-      console.log(`title: ${title.value}`);
+
       if (checkProjectExists(title.value)) {
         return alert("Project already exists");
       }
