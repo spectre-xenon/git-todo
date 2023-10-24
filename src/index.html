@@ -16,8 +16,15 @@
       <div id="projectsContainer"></div>
     </aside>
     <main>
-      <div id="progressBar">
-        <div id="progressSlider"></div>
+      <div id="topBar">
+        <select id="sortBy" aria-placeholder="Sort By">
+          <option value="" disabled selected hidden>Sort By</option>
+          <option value="priority">priority</option>
+          <option value="dueDate">due Date</option>
+        </select>
+        <div id="progressBar">
+          <div id="progressSlider"></div>
+        </div>
       </div>
       <div id="todoContainer"></div>
     </main>

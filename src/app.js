@@ -1,7 +1,13 @@
 import "./index.css";
 import { formatISO } from "date-fns";
 import renderDOM from "./components/domHandler";
-import { getProjectArr, createProject, addTodo } from "./components/Project";
+import {
+  getProjectArr,
+  createProject,
+  addTodo,
+  sortAllProject,
+  saveProjectArr,
+} from "./components/Project";
 
 (function main() {
   const FirstSiteVisist = localStorage.getItem("FSV") || "1";
@@ -31,4 +37,19 @@ import { getProjectArr, createProject, addTodo } from "./components/Project";
   } else {
     renderDOM(getProjectArr());
   }
+
+  const sortBySelect = document.getElementById("sortBy");
+  if (localStorage.getItem("sortType") === "priority") {
+    sortBySelect.value = "priority";
+  } else if (localStorage.getItem("sortType") === "dueDate") {
+    sortBySelect.value = "dueDate";
+  }
+
+  sortBySelect.addEventListener("input", (e) => {
+    console.log(e.target.value);
+    localStorage.setItem("sortType", e.target.value);
+    sortAllProject();
+    saveProjectArr();
+    renderDOM(getProjectArr());
+  });
 })();

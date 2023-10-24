@@ -1,3 +1,4 @@
+import { isAfter, closestTo, isToday, parseISO, compareAsc } from "date-fns";
 import renderDOM from "./domHandler";
 
 const storedArr = JSON.parse(localStorage.getItem("storedArr")) || [];
@@ -59,21 +60,48 @@ function saveProjectArr() {
 }
 
 function sortAllProject() {
-  // TODO
+  const sortType = localStorage.getItem("sortType") || "priority";
+
   projectArr.forEach((project) => {
-    project.todos.sort((todo1, todo2) => {
-      const priorities = { high: 2, normal: 1, low: 0 };
+    if (sortType === "priority") {
+      project.todos.sort((todo1, todo2) => {
+        const priorities = { high: 2, normal: 1, low: 0 };
 
-      const a = priorities[todo1.priority];
-      const b = priorities[todo2.priority];
+        const a = priorities[todo1.priority];
+        const b = priorities[todo2.priority];
 
-      return b - a;
-    });
+        return b - a;
+      });
+
+      const groups = {};
+
+      project.todos.forEach((todo) => {
+        if (!groups[todo.priority]) {
+          groups[todo.priority] = [];
+        }
+        groups[todo.priority].push(todo);
+      });
+
+      const sortedByDateGroups = Object.values(groups);
+      sortedByDateGroups.forEach((group) => {
+        group.sort((todo1, todo2) => {
+          if (isAfter(parseISO(todo1.date), parseISO(todo2.date))) return -1;
+          if (isAfter(parseISO(todo2.date), parseISO(todo1.date))) return 1;
+          return 0;
+        });
+      });
+      project.todos = sortedByDateGroups.flat();
+    } else if (sortType === "dueDate") {
+      project.todos.sort((todo1, todo2) => {
+        if (isAfter(parseISO(todo1.date), parseISO(todo2.date))) return 1;
+        if (isAfter(parseISO(todo2.date), parseISO(todo1.date))) return -1;
+        return 0;
+      });
+    }
   });
 }
 
 function createProject(title) {
-  // Todo: move this function to (create,remove,edit todo functions)
   projectArr.push(Project(title));
   sortAllProject();
   renderDOM(projectArr);
@@ -162,6 +190,7 @@ function getProjectArr() {
 }
 
 export {
+  sortAllProject,
   saveProjectArr,
   createProject,
   checkProjectExists,
